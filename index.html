@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LokerScope - Pelacak Lamaran</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div class="app-wrapper">
+
+        <!-- HALAMAN LOGIN -->
+        <div id="page-login" class="page active">
+            <div class="logo">🔍</div>
+            <h1>Loker<span style="color:#304254;">Scope</span></h1>
+            <p>Pilih user untuk mulai melacak lamaran kerja</p>
+            <div class="user-selector">
+                <div class="user-card" onclick="loginUser('Deryll')">
+                    <span class="avatar">👤</span>
+                    <div class="name">Deryll</div>
+                </div>
+                <div class="user-card" onclick="loginUser('Jasmine')">
+                    <span class="avatar">👤</span>
+                    <div class="name">Jasmine</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HALAMAN UTAMA -->
+        <div id="page-main">
+
+            <!-- NAVIGASI -->
+            <div class="nav-bar">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-page="page-home">🏠 Beranda</button>
+                    <button class="nav-tab" data-page="page-tracker">📋 Pelacak Lamaran</button>
+                </div>
+                <div class="user-controls">
+                    <span class="label">User:</span>
+                    <button class="user-switch-btn active" data-user="Deryll" onclick="switchUser('Deryll')">Deryll</button>
+                    <button class="user-switch-btn" data-user="Jasmine" onclick="switchUser('Jasmine')">Jasmine</button>
+                    <button class="logout-btn" onclick="logout()" title="Logout">✕</button>
+                </div>
+            </div>
+
+            <!-- BERANDA -->
+            <div id="page-home" class="page active">
+                <div class="hero-icon">📊</div>
+                <h1 class="hero-title">Halo, <span id="greetingUser">User</span>!</h1>
+                <p class="hero-desc">YOK BISA YOK</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalLamaran">0</div>
+                        <div class="stat-label">Total Lamaran</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalInterview">0</div>
+                        <div class="stat-label">Interview</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalDiterima">0</div>
+                        <div class="stat-label">Diterima</div>
+                    </div>
+                </div>
+                <button class="btn-action-card" onclick="pindahKe('page-tracker')">
+                    <span>Buka Pelacak Lamaran</span>
+                    <span class="arrow">→</span>
+                </button>
+            </div>
+
+            <!-- PELACAK LAMARAN -->
+            <div id="page-tracker" class="page">
+                <div class="tracker-header">
+                    <div class="title-group">
+                        <h2>📋 LokerScope</h2>
+                        <p class="tracker-sub">BISMILAH DAPAT !!!</p>
+                    </div>
+                    <button class="btn-add" onclick="bukaModalTambah()">＋ Tambah</button>
+                </div>
+
+                <div class="filter-section">
+                    <span class="filter-label">Filter:</span>
+                    <button class="filter-btn active" data-filter="semua">Semua</button>
+                    <button class="filter-btn" data-filter="Dilamar">🟡 Dilamar</button>
+                    <button class="filter-btn" data-filter="Interview">🔵 Interview</button>
+                    <button class="filter-btn" data-filter="Diterima">🟢 Diterima</button>
+                    <button class="filter-btn" data-filter="Ditolak">🔴 Ditolak</button>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>POSISI</th>
+                                <th>PERUSAHAAN</th>
+                                <th>TANGGAL APPLY</th>
+                                <th>STATUS</th>
+                                <th style="text-align:center;">AKSI</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jobTableBody">
+                            <!-- diisi JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL TAMBAH -->
+    <div class="modal-overlay" id="modalTambah">
+        <div class="modal-box">
+            <h3>✨ Tambah Lamaran</h3>
+            <p class="modal-sub">Isi data lamaran baru di bawah ini.</p>
+            <div class="form-group">
+                <label for="inputPosisi">Posisi</label>
+                <input type="text" id="inputPosisi" placeholder="Contoh: Frontend Developer" />
+            </div>
+            <div class="form-group">
+                <label for="inputPerusahaan">Perusahaan</label>
+                <input type="text" id="inputPerusahaan" placeholder="Contoh: PT Tech Inovasi" />
+            </div>
+            <div class="form-group">
+                <label for="inputTanggal">Tanggal Apply</label>
+                <input type="date" id="inputTanggal" />
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal batal" onclick="tutupModalTambah()">Batal</button>
+                <button class="btn-modal simpan" onclick="simpanLamaran()">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIREBASE SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+    <!-- SCRIPT UTAMA -->
+    <script src="script.js"></script>
+</body>
+</html>
